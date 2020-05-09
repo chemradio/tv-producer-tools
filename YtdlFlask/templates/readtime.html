@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Calculate read time of the text</legend>
+                <div class="form-group">
+                    {{ form.text.label(class="form-control-label") }}
+                    {% if form.text.errors %}
+                        {{ form.text(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.text.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.text(class="form-control", id="exampleFormControlTextarea1", rows="13") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+
+                {% if form.read_time.data %}
+                    <div class="form-group">
+                        {{ form.read_time.label(class="form-control-label") }}
+                        {% if form.read_time.errors %}
+                            {{ form.read_time(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.read_time.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.read_time(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </fieldset>
+        </form>
+    </div>
+{% endblock content %}

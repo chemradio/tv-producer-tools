@@ -53,6 +53,20 @@
                     </div>
 
                     <div class="form-group">
+                        {{ form.download_name.label(class="form-control-label") }}
+                        {% if form.download_name.errors %}
+                            {{ form.download_name(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.download_name.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        <h5>{{ form.host.data }} - {{ form.uploader.data }} - {{ form.muxed_resolution.data }}.mp4</h5>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
                         {{ form.muxed_resolution.label(class="form-control-label") }}
                         {% if form.muxed_resolution.errors %}
                             {{ form.muxed_resolution(class="form-control form-control-lg is-invalid") }}

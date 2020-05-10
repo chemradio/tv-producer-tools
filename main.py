@@ -21,7 +21,8 @@ def ytdl():
     if form.validate_on_submit():
         ytdl_list = YtdlEngine().go_ahead(form.ytdl_link.data)
         twoformats, form.host.data, form.uploader.data, form.muxed_resolution.data, form.muxed_url.data, form.best_video_resolution.data, form.best_video_url.data = ytdl_list
-        print(ytdl_list)
+
+        # print(ytdl_list)
     return render_template('ytdl.html', form=form, twoformats=twoformats, ytdl_list=ytdl_list)
 
 

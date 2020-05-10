@@ -9,7 +9,7 @@ class YtdlLinkForm(FlaskForm):
 
     host = StringField('Host')
     uploader = StringField('Uploader Name')
-    # download_name = StringField('Premade Download Filename')
+    download_name = StringField('Download Filename')
     muxed_resolution = StringField('Resolution')
     muxed_url = StringField('Download URL')
     best_video_resolution = StringField('Best Available Video Resolution')

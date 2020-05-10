@@ -1,8 +1,8 @@
-from flask import render_template
-from YtdlFlask.forms import YtdlLinkForm, ReadTimeForm
-from YtdlFlask.ytdl import YtdlEngine
-from YtdlFlask.readtime import calc_readtime
-from flask import Flask
+from flask import Flask, render_template
+
+from forms import YtdlLinkForm, ReadTimeForm
+from ytdl import YtdlEngine
+from readtime import calc_readtime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'c6eafc9425925847cb4218e97d28a6cb'
@@ -31,3 +31,7 @@ def readtime():
     if form.validate_on_submit():
         form.read_time.data = calc_readtime(text=form.text.data)
     return render_template('readtime.html', form=form)
+
+
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=8080, debug=True)

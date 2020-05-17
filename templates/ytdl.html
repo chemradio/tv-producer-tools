@@ -22,107 +22,113 @@
                 <div class="form-group">
                     {{ form.submit(class="btn btn-outline-info") }}
                 </div>
-
-                {% if form.host.data %}
-                    <div class="form-group">
-                        {{ form.host.label(class="form-control-label") }}
-                        {% if form.host.errors %}
-                            {{ form.host(class="form-control form-control-lg is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.host.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                        <h5>{{ form.host.data }}</h5>
-                        {% endif %}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form.uploader.label(class="form-control-label") }}
-                        {% if form.uploader.errors %}
-                            {{ form.uploader(class="form-control form-control-lg is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.uploader.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                        <h5>{{ form.uploader.data }}</h5>
-                        {% endif %}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form.download_name.label(class="form-control-label") }}
-                        {% if form.download_name.errors %}
-                            {{ form.download_name(class="form-control form-control-lg is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.download_name.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                        <h5>{{ form.host.data }} - {{ form.uploader.data }} - {{ form.muxed_resolution.data }}.mp4</h5>
-                        {% endif %}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form.muxed_resolution.label(class="form-control-label") }}
-                        {% if form.muxed_resolution.errors %}
-                            {{ form.muxed_resolution(class="form-control form-control-lg is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.muxed_resolution.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                        <h5>{{ form.muxed_resolution.data }}</h5>
-                        {% endif %}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form.muxed_url.label(class="form-control-label") }}
-                        {% if form.muxed_url.errors %}
-                            {{ form.muxed_url(class="form-control form-control-lg is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.muxed_url.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                        <h5><a download="{{ form.host.data }} - {{ form.uploader.data }} - {{ form.muxed_resolution.data }}.mp4" href = "{{ form.muxed_url.data }}">Link</a></h5>
-                        {% endif %}
-                    </div>
-
-                    {% if twoformats == True %}
-
+                {% if twoformats %}
+                    {% if twoformats == 'Error' %}
                         <div class="form-group">
-                            {{ form.best_video_resolution.label(class="form-control-label") }}
-                            {% if form.best_video_resolution.errors %}
-                                {{ form.best_video_resolution(class="form-control form-control-lg is-invalid") }}
+                            <h5>Something went wrong...</h5>
+                            <h6>The video might be private.</h6>
+                        </div>
+                    {% elif form.host.data %}
+                        <div class="form-group">
+                            {{ form.host.label(class="form-control-label") }}
+                            {% if form.host.errors %}
+                                {{ form.host(class="form-control form-control-lg is-invalid") }}
                                 <div class="invalid-feedback">
-                                    {% for error in form.best_video_resolution.errors %}
+                                    {% for error in form.host.errors %}
                                         <span>{{ error }}</span>
                                     {% endfor %}
                                 </div>
                             {% else %}
-                            <h5>{{ form.best_video_resolution.data }}</h5>
+                            <h5>{{ form.host.data }}</h5>
                             {% endif %}
                         </div>
 
                         <div class="form-group">
-                            {{ form.best_video_url.label(class="form-control-label") }}
-                            {% if form.best_video_url.errors %}
-                                {{ form.best_video_url(class="form-control form-control-lg is-invalid") }}
+                            {{ form.uploader.label(class="form-control-label") }}
+                            {% if form.uploader.errors %}
+                                {{ form.uploader(class="form-control form-control-lg is-invalid") }}
                                 <div class="invalid-feedback">
-                                    {% for error in form.best_video_url.errors %}
+                                    {% for error in form.uploader.errors %}
                                         <span>{{ error }}</span>
                                     {% endfor %}
                                 </div>
                             {% else %}
-                            <h5><a download="{{ form.host.data }} - {{ form.uploader.data }} - {{ form.best_video_resolution.data }}.mp4" href = "{{ form.best_video_url.data }}" >Link</a></h5>
+                            <h5>{{ form.uploader.data }}</h5>
                             {% endif %}
                         </div>
+
+                        <div class="form-group">
+                            {{ form.download_name.label(class="form-control-label") }}
+                            {% if form.download_name.errors %}
+                                {{ form.download_name(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.download_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                            <h5>{{ form.host.data }} - {{ form.uploader.data }} - {{ form.muxed_resolution.data }}.mp4</h5>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.muxed_resolution.label(class="form-control-label") }}
+                            {% if form.muxed_resolution.errors %}
+                                {{ form.muxed_resolution(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.muxed_resolution.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                            <h5>{{ form.muxed_resolution.data }}</h5>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.muxed_url.label(class="form-control-label") }}
+                            {% if form.muxed_url.errors %}
+                                {{ form.muxed_url(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.muxed_url.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                            <h5><a download="{{ form.host.data }} - {{ form.uploader.data }} - {{ form.muxed_resolution.data }}.mp4" href = "{{ form.muxed_url.data }}">Link</a></h5>
+                            {% endif %}
+                        </div>
+
+                        {% if twoformats == True %}
+
+                            <div class="form-group">
+                                {{ form.best_video_resolution.label(class="form-control-label") }}
+                                {% if form.best_video_resolution.errors %}
+                                    {{ form.best_video_resolution(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.best_video_resolution.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                <h5>{{ form.best_video_resolution.data }}</h5>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.best_video_url.label(class="form-control-label") }}
+                                {% if form.best_video_url.errors %}
+                                    {{ form.best_video_url(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.best_video_url.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                <h5><a download="{{ form.host.data }} - {{ form.uploader.data }} - {{ form.best_video_resolution.data }}.mp4" href = "{{ form.best_video_url.data }}" >Link</a></h5>
+                                {% endif %}
+                            </div>
+                        {% endif %}
                     {% endif %}
                 {% endif %}
             </fieldset>

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField
+from wtforms import StringField, SubmitField, TextAreaField, FileField
 from wtforms.validators import DataRequired, URL
 
 
@@ -20,3 +20,8 @@ class ReadTimeForm(FlaskForm):
     text = TextAreaField('Add text here', validators=[DataRequired()])
     submit = SubmitField('Calculate read time')
     read_time = StringField('Text read time')
+
+
+class FileConverterForm(FlaskForm):
+    file = FileField('Add your file here', validators=[DataRequired()])
+    submit = SubmitField('Convert to MP3')

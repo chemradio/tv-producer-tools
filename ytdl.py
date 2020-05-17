@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import youtube_dl
+from youtube_dl.utils import DownloadError
 from operator import itemgetter
 from pprint import pprint
 
@@ -26,7 +27,10 @@ class YtdlEngine():
         best_muxed_dict = {}
         list_formats = []
         ytdl_dict = {}
-        ytdl_dict = self.ydl.extract_info(url=url, download=False)
+        try:
+            ytdl_dict = self.ydl.extract_info(url=url, download=False)
+        except DownloadError:
+            return 'Error', 1, 1, 1, 1, 1, 1
 
         ytdl_formats = ytdl_dict['formats']
         if verbose == True:
@@ -135,8 +139,8 @@ class YtdlEngine():
                 best_muxed_dict = item
                 break
 
-        # pprint(best_muxed_dict)
-        # pprint(best_video_dict)
+        pprint(best_muxed_dict)
+        pprint(best_video_dict)
 
         best_muxed_url = best_muxed_dict['URL']
         best_video_url = best_video_dict['URL']

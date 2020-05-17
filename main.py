@@ -1,11 +1,13 @@
-from flask import Flask, render_template
+import os, secrets
+from flask import Flask, render_template, request, send_from_directory
+from static.forms import YtdlLinkForm, ReadTimeForm
+from static.engines.ytdl_engine import YtdlEngine
+from static.engines.readtime_engine import calc_readtime
+from static.engines.audio_conv_engine import convert_audio_mp3
 
-from forms import YtdlLinkForm, ReadTimeForm, FileConverterForm
-from ytdl import YtdlEngine
-from readtime import calc_readtime
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'c6eafc9425925847cb4218e97d28a6cb'
+app.config.from_object('config.Config')
 
 
 @app.route('/')
@@ -33,10 +35,21 @@ def readtime():
     return render_template('readtime.html', form=form)
 
 
-# @app.route('/audio_converter', methods=['GET', 'POST'])
-# def audio_converter():
-#     form = FileConverterForm()
-#     return render_template('audio_converter.html', form=form)
+@app.route('/audio_converter', methods=['GET', 'POST'])
+def audio_converter():
+    if request.method == 'POST':
+        if request.files:
+            file = request.files['file']
+            hash_filename = secrets.token_hex(15)
+            ext = os.path.splitext(file.filename)[-1]
+            file.save(os.path.join(app.config["AC_UPLOADS"], hash_filename + ext))
+            converted_filename = convert_audio_mp3(app.config['AC_UPLOADS'] + '/' + hash_filename + ext)
+            return send_from_directory(app.config['AC_CONVERTED'], converted_filename, as_attachment=True), os.remove(app.config['AC_CONVERTED'] + "/" + converted_filename)
+        else:
+            return 'no file'
+    elif request.method == 'GET':
+        print('get')
+    return render_template('audio_converter.html', as_attachment = True)
 
 
 if __name__ == '__main__':

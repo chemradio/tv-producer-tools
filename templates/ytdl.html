@@ -22,13 +22,13 @@
                 <div class="form-group">
                     {{ form.submit(class="btn btn-outline-info") }}
                 </div>
-                {% if twoformats %}
+                {% if twoformats != 'Error' %}
                     {% if twoformats == 'Error' %}
                         <div class="form-group">
                             <h5>Something went wrong...</h5>
                             <h6>The video might be private.</h6>
                         </div>
-                    {% elif form.host.data %}
+                    {% else %}
                         <div class="form-group">
                             {{ form.host.label(class="form-control-label") }}
                             {% if form.host.errors %}
